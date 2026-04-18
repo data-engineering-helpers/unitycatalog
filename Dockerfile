@@ -7,10 +7,16 @@
 # * Forked repo: https://hub.docker.com/r/infrahelpers/unitycatalog
 # * Original repo: https://hub.docker.com/r/unitycatalog/unitycatalog
 #
+# AWS Corretto
+# ============
+# * Dockerfile on GitHub: https://github.com/corretto/corretto-docker
+# * Docker Hub: https://hub.docker.com/_/amazoncorretto
+#
 ARG HOME="/home/unitycatalog"
 
 # Build stage, using Amazon Corretto jdk 17 on alpine with arm64 support
-FROM amazoncorretto:17-alpine3.20-jdk@sha256:c045f0537bc890f9e61924f33f35e9667f696b4f372dad4a73861a9396b5d0b5 AS base
+#FROM amazoncorretto:17-alpine3.20-jdk@sha256:c045f0537bc890f9e61924f33f35e9667f696b4f372dad4a73861a9396b5d0b5 AS base
+FROM amazoncorretto:21-alpine3.23-jdk AS base
 
 # Dependencies are installed in $HOME/.cache by sbt
 ARG HOME
@@ -23,7 +29,8 @@ COPY --parents dev/ build/ project/ examples/ server/ api/ clients/ version.sbt 
 RUN apk add --no-cache bash && ./build/sbt -info clean package
 
 # Small runtime image
-FROM alpine:3.20@sha256:a4f4213abb84c497377b8544c81b3564f313746700372ec4fe84653e4fb03805 AS runtime
+#FROM alpine:3.20@sha256:a4f4213abb84c497377b8544c81b3564f313746700372ec4fe84653e4fb03805 AS runtime
+FROM alpine:3.23 AS runtime
 
 # Specific JAVA_HOME from Amazon Corretto
 ARG JAVA_HOME="/usr/lib/jvm/default-jvm"
