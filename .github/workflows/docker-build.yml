@@ -124,9 +124,8 @@ jobs:
             type=ref,event=branch
             type=ref,event=tag
             type=sha,enable=${{ github.ref == 'refs/heads/main' }},prefix={{branch}}-
-            type=sha,event=branch,prefix={{branch}}-
             type=sha,event=branch,prefix=unitycatalog-main-
-            type=ref,event=branch,prefix=unitycatalog-main
+            ${{ env.IMAGE }}:main
 
       # Cross-platform emulator collection distributed with Docker images:
       # https://github.com/tonistiigi/binfmt
