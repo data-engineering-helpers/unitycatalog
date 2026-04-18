@@ -9,35 +9,36 @@
 name: Build and Push Docker Images - unitycatalog
 
 on:
-  # push:
-  #   tags:
-  #     - "v*"
-  #   branches:
-  #     - main
-  #     - feat-*
-  #   paths:
-  #     - build/**
-  #     - project/**
-  #     - examples/**
-  #     - server/**
-  #     - api/**
-  #     - clients/**
-  #     - version.sbt
-  #     - build.sbt
-  #     - Dockerfile
-  # pull_request:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - build/**
-  #     - project/**
-  #     - examples/**
-  #     - server/**
-  #     - api/**
-  #     - clients/**
-  #     - version.sbt
-  #     - build.sbt
-  #     - Dockerfile
+  push:
+    tags:
+      - "v*"
+    branches:
+      - main
+      - feat-*
+    paths:
+      - build/**
+      - project/**
+      - examples/**
+      - server/**
+      - api/**
+      - clients/**
+      - version.sbt
+      - build.sbt
+      - Dockerfile
+  pull_request:
+    branches:
+      - main
+      - feat-*
+    paths:
+      - build/**
+      - project/**
+      - examples/**
+      - server/**
+      - api/**
+      - clients/**
+      - version.sbt
+      - build.sbt
+      - Dockerfile
   workflow_dispatch:
 
 env:
@@ -46,7 +47,7 @@ env:
 jobs:
   docker-cli-test:
     name: Docker CLI Sanity Check
-    if: false  # Disabled to prevent supply chain attacks; remove this line to restore
+    #if: false  # Disabled to prevent supply chain attacks; remove this line to restore
     runs-on: ubuntu-latest
 
     steps:
