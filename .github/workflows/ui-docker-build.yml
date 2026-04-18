@@ -66,8 +66,9 @@ jobs:
         with:
           images: ${{ env.IMAGE }}
           tags: |
-            type=ref,event=branch
+            type=ref,event=branch,prefix=ui-{{branch}}-
             type=sha,enable=${{ github.ref == 'refs/heads/main' }},prefix=ui-{{branch}}-
+            type=sha,event=branch,prefix=ui-{{branch}}-
 
       # Cross-platform emulator collection distributed with Docker images:
       # https://github.com/tonistiigi/binfmt
