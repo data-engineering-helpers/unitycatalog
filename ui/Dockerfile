@@ -7,7 +7,8 @@
 # * Forked repo: https://hub.docker.com/r/infrahelpers/unitycatalog
 # * Original repo: https://hub.docker.com/r/unitycatalog/unitycatalog-ui
 #
-FROM node:18@sha256:c6ae79e38498325db67193d391e6ec1d224d96c693a8a4d943498556716d3783
+#FROM node:18@sha256:c6ae79e38498325db67193d391e6ec1d224d96c693a8a4d943498556716d3783
+FROM node:24
 
 ARG PROXY_HOST=server
 WORKDIR /ui
