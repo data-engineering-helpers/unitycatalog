@@ -24,6 +24,10 @@ env:
 jobs:
   build-and-push:
     #if: false  # Disabled to prevent supply chain attacks; remove this line to restore
+
+    # https://github.com/data-engineering-helpers/unitycatalog/settings/environments/14294668701/edit
+    environment: docker-hub
+
     runs-on: ubuntu-latest
 
     steps:
