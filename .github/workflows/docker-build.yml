@@ -48,6 +48,10 @@ jobs:
   docker-cli-test:
     name: Docker CLI Sanity Check
     #if: false  # Disabled to prevent supply chain attacks; remove this line to restore
+
+    # https://github.com/data-engineering-helpers/unitycatalog/settings/environments/14294668701/edit
+    environment: docker-hub
+
     runs-on: ubuntu-latest
 
     steps:
@@ -74,7 +78,11 @@ jobs:
 
   build-and-push:
     needs: docker-cli-test
-    if: false  # Disabled to prevent supply chain attacks; remove this line to restore
+    #if: false  # Disabled to prevent supply chain attacks; remove this line to restore
+
+    # https://github.com/data-engineering-helpers/unitycatalog/settings/environments/14294668701/edit
+    environment: docker-hub
+
     runs-on: ubuntu-latest
 
     steps:
