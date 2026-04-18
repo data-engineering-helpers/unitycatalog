@@ -1,3 +1,11 @@
+#
+# File: https://github.com/data-engineering-helpers/unitycatalog/blob/main/ui/Dockerfile
+# Fork of https://github.com/unitycatalog/unitycatalog/blob/main/ui/Dockerfile
+#
+# On Docker Hub:
+# * Forked repo: https://hub.docker.com/r/infrahelpers/unitycatalog
+# * Original repo: https://hub.docker.com/r/unitycatalog/unitycatalog-ui
+#
 # syntax=docker.io/docker/dockerfile:1.7-labs@sha256:b99fecfe00268a8b556fad7d9c37ee25d716ae08a5d7320e6d51c4dd83246894
 FROM node:18@sha256:c6ae79e38498325db67193d391e6ec1d224d96c693a8a4d943498556716d3783
 
