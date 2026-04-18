@@ -26,7 +26,7 @@ WORKDIR $HOME
 
 COPY --parents dev/ build/ project/ examples/ server/ api/ clients/ version.sbt build.sbt ./
 
-RUN apk add --no-cache bash && ./build/sbt -info clean package
+RUN apk add --no-cache bash && ./build/sbt -info +clean +package +publishLocal
 
 # Small runtime image
 #FROM alpine:3.20@sha256:a4f4213abb84c497377b8544c81b3564f313746700372ec4fe84653e4fb03805 AS runtime
