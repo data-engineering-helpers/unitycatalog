@@ -1,3 +1,11 @@
+#
+# File: https://github.com/data-engineering-helpers/unitycatalog/blob/main/.github/workflows/docker-build.yml
+# Fork of https://github.com/unitycatalog/unitycatalog/blob/main/.github/workflows/disabled_docker-build.yml
+#
+# On Docker Hub:
+# * Forked repo: https://hub.docker.com/r/infrahelpers/unitycatalog
+# * Original repo: https://hub.docker.com/r/unitycatalog/unitycatalog
+#
 name: Build and Push Docker Images - unitycatalog
 
 on:
@@ -29,10 +37,10 @@ on:
       - version.sbt
       - build.sbt
       - Dockerfile
-  workflow_dispatch: {}
+  workflow_dispatch:
 
 env:
-  IMAGE: unitycatalog/unitycatalog
+  IMAGE: infrahelpers/unitycatalog
 
 jobs:
   docker-cli-test:
@@ -91,15 +99,20 @@ jobs:
             type=ref,event=tag
             type=sha,enable=${{ github.ref == 'refs/heads/main' }},prefix={{branch}}-
 
+      # Cross-platform emulator collection distributed with Docker images:
+      # https://github.com/tonistiigi/binfmt
+      - name: Run privileged
+        run: sudo docker run --privileged --rm tonistiigi/binfmt --install arm64
+
       - name: Login to Docker Hub
-        if: ${{ contains(fromJSON('["push", "workflow_dispatch"]'), github.event_name) && (startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main') }}
+        # if: ${{ contains(fromJSON('["push", "workflow_dispatch"]'), github.event_name) && (startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main') }}
         uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and Push Docker Image
-        if: ${{ contains(fromJSON('["push", "workflow_dispatch"]'), github.event_name) && (startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main') }}
+        # if: ${{ contains(fromJSON('["push", "workflow_dispatch"]'), github.event_name) && (startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main') }}
         uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
         with:
           context: .
@@ -108,7 +121,9 @@ jobs:
           # "unitycatalog/unitycatalog:v0.2.0".
           # See here for more info: https://tinyurl.com/yh8252m2
           push: true
-          platforms: linux/amd64,linux/arm64
+          provenance: mode=max
+          sbom: true
+          platforms: linux/amd64,linux/arm64/v8
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
