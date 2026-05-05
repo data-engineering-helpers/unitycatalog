@@ -64,14 +64,20 @@ COPY --from=base --parents \
     $HOME/api/ \
     $HOME/clients/ \
     $HOME/target/ \
-    $HOME/.cache/ \
     /
+
+# During build, sbt/coursier resolve dependencies under /root/.cache.
+# Copy that cache into the runtime user's cache location used by classpath files.
+COPY --from=base /root/.cache/ $HOME/.cache/
 
 # Create a service user with read and execute permissions and write permissions of the ./etc directory
 RUN <<EOF
 apk add --no-cache bash
 addgroup -S $USER
 adduser -S -G $USER $USER
+# Classpath files are generated during build and may reference /root/.cache.
+# Rewrite to runtime path so jars are resolvable when running as $USER.
+find "$HOME" -type f -name classpath -exec sed -i "s|/root/.cache|$HOME/.cache|g" {} \;
 chmod -R 550 $HOME
 mkdir -p $HOME/etc/
 chmod -R 770 $HOME/etc/

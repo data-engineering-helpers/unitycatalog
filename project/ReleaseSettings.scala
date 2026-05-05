@@ -2,7 +2,7 @@ import sbt._
 import sbt.Keys._
 import sbtrelease.ReleasePlugin.autoImport._
 import sbtrelease.ReleaseStateTransformations._
-import xerial.sbt.Sonatype.autoImport._
+// import xerial.sbt.Sonatype.autoImport._
 import com.jsuereth.sbtpgp.SbtPgp.autoImport._
 
 import scala.language.implicitConversions
@@ -51,7 +51,8 @@ object ReleaseSettings {
     Test / publishArtifact := false,
     releasePublishArtifactsAction := PgpKeys.publishSigned.value,
     pgpPassphrase := sys.env.get("PGP_PASSPHRASE").map(_.toArray),
-    sonatypeProfileName := "io.unitycatalog",
+    // sonatypeProfileName := "io.unitycatalog",
+    organization := "io.unitycatalog",
     credentials += Credentials(
       "OSSRH Staging API Service",
       "ossrh-staging-api.central.sonatype.com",
