@@ -35,7 +35,7 @@ COPY --parents dev/ build/ project/ examples/ server/ api/ clients/ version.sbt 
 
 RUN apk add --no-cache ca-certificates
 ADD *.crt /tmp/
-RUN ls /tmp/*.crt && cat /tmp/*.crt >> /etc/ssl/certs/ca-certificates.crt
+RUN ls /tmp/*.crt 2> /dev/null && cat /tmp/*.crt >> /etc/ssl/certs/ca-certificates.crt || echo "No cert, everything is fine"
 
 RUN apk update && apk upgrade --available && \
     apk add --no-cache bash && \
