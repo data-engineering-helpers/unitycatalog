@@ -48,3 +48,7 @@ __pycache__
 dist/
 *.egg-info/
 Pipfile
+
+# Corporate certificates
+/*.crt
+
