@@ -105,6 +105,12 @@ lazy val commonSettings = Seq(
     case DepModuleInfo("org.hibernate.common", "hibernate-commons-annotations", _) =>
       // Apache 2.0: https://mvnrepository.com/artifact/org.hibernate.common/hibernate-commons-annotations
       LicenseInfo(LicenseCategory.Apache, "Apache 2.0", "http://www.apache.org/licenses")
+    case DepModuleInfo("com.microsoft.azure", "msal4j", _) =>
+      // MIT: https://central.sonatype.com/artifact/com.microsoft.azure/msal4j
+      LicenseInfo(LicenseCategory.MIT, "MIT License", "http://www.slf4j.org/license.html")
+    case DepModuleInfo("com.microsoft.azure", "msal4j-persistence-extension", _) =>
+      // MIT: https://central.sonatype.com/artifact/com.microsoft.azure/msal4j
+      LicenseInfo(LicenseCategory.MIT, "MIT License", "http://www.slf4j.org/license.html")
   },
   licenseDepExclusions := {
     // LGPL 2.1: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
